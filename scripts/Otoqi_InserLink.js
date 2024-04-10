@@ -8,6 +8,8 @@
 // @grant        none
 // ==/UserScript==
 
+var version 0.2
+
 function getVersionFromContent(content) {
     // Logique pour extraire la version du contenu
     var versionRegex = /version = "(\d+\.\d+)";/;
