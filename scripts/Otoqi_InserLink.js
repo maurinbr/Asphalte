@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [Otoqi] GoogleMaps Trajet by Tchip
 // @namespace   https://github.com/maurinbr/Asphalte
-// @version      0.1
+// @version      0.2
 // @description  Générer un lien Google Maps pour un trajet entre deux points
 // @author       Tchip
 // @match        https://drivers.otoqi.com/a/missions  
