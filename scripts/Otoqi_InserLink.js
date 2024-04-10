@@ -8,6 +8,35 @@
 // @grant        none
 // ==/UserScript==
 
+function getVersionFromContent(content) {
+    // Logique pour extraire la version du contenu
+    var versionRegex = /version = "(\d+\.\d+)";/;
+    var match = content.match(versionRegex);
+    if (match && match[1]) {
+        return match[1];
+    } else {
+        return null; // Si la version n'a pas été trouvée
+    }
+}
+var localVersion = "0.2"; // Version locale
+
+
+fetch('https://github.com/maurinbr/Asphalte/blob/main/scripts/Otoqi_InserLink.js')
+  .then(response => response.text())
+  .then(data => {
+    var remoteVersion = getVersionFromContent(data); // Version récupérée du fichier JS distant
+    if (remoteVersion && remoteVersion !== localVersion) {
+        console.log("Une nouvelle version est disponible :", remoteVersion);
+        // Déclencher ici le processus de mise à jour si nécessaire
+    } else {
+        console.log("La version est à jour.");
+    }
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Erreur lors de la récupération du fichier JS :', error);
+  });
+
 (function() {
     'use strict';
 
