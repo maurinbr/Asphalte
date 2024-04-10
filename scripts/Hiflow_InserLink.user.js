@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        [Hiflow] Calendrier by Tchip
+// @name        [Hiflow] Insert Link by Tchip
 // @namespace   https://github.com/maurinbr/Asphalte
 // @include     https://partenaire.expedicar.com/transfer/*
 // @version     0.1
@@ -9,10 +9,14 @@
 // ==/UserScript==
 
 window.addEventListener('load', function() {
-    setTimeout(function() {
+    function InserLink() {
         var lastSpans = [];
         var partialSections = document.querySelectorAll('.partial-section');
-
+        if (partialSections.length === 0) {
+            // Si aucun élément n'est trouvé, réessayer dans 1 seconde
+            setTimeout(InserLink, 1000);
+            return;
+        }
         partialSections.forEach(function(section) {
             var spans = section.querySelectorAll('span');
             if (spans.length > 0) {
@@ -58,5 +62,7 @@ window.addEventListener('load', function() {
             targetDiv.innerHTML = '';
             targetDiv.appendChild(linkElement);
         }
-    }, 2000);
+    };
+        // Exécution initiale du script
+        InserLink ;
 });
