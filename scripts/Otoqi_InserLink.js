@@ -8,7 +8,7 @@
 // @grant        none
 // ==/UserScript==
 
-const version 0.2;
+const version = 0.2;
 
 function getVersionFromContent(content) {
     // Logique pour extraire la version du contenu
