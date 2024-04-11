@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 const version = 0.2;
-// Fonction pour extraire la version du contenu du fichier JavaScript
+
 function getVersionFromContent(content) {
     // Chercher la ligne qui contient la version
     var lines = content.split('\n');
