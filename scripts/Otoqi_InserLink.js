@@ -8,34 +8,45 @@
 // @grant        none
 // ==/UserScript==
 
+const version = 0.2;
+// Fonction pour extraire la version du contenu du fichier JavaScript
 function getVersionFromContent(content) {
-    // Logique pour extraire la version du contenu
-    var versionRegex = /version = "(\d+\.\d+)";/;
-    var match = content.match(versionRegex);
-    if (match && match[1]) {
-        return match[1];
+    // Chercher la ligne qui contient la version
+    var lines = content.split('\n');
+    var versionLine = lines.find(line => line.trim().startsWith('const version'));
+		console.log(versionLine);
+    if (versionLine) {
+        // Extraire la version de la ligne
+        var startIndex = versionLine.indexOf('"') + 1;
+        var endIndex = versionLine.lastIndexOf('"');
+        var version = versionLine.substring(startIndex, endIndex);
+      	console.log(startIndex, endIndex, version)
+        return version;
     } else {
         return null; // Si la version n'a pas été trouvée
     }
 }
-var localVersion = "0.2"; // Version locale
 
+// URL du fichier JavaScript
+var jsFileUrl = 'https://raw.githubusercontent.com/maurinbr/Asphalte/main/scripts/Otoqi_InserLink.js';
 
-fetch('https://github.com/maurinbr/Asphalte/blob/main/scripts/Otoqi_InserLink.js')
-  .then(response => response.text())
-  .then(data => {
-    var remoteVersion = getVersionFromContent(data); // Version récupérée du fichier JS distant
-    if (remoteVersion && remoteVersion !== localVersion) {
-        console.log("Une nouvelle version est disponible :", remoteVersion);
-        // Déclencher ici le processus de mise à jour si nécessaire
-    } else {
-        console.log("La version est à jour.");
-    }
-    console.log(data);
-  })
-  .catch(error => {
-    console.error('Erreur lors de la récupération du fichier JS :', error);
-  });
+// Utilisation de Fetch pour récupérer le contenu du fichier JavaScript
+fetch(jsFileUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur de récupération du fichier JavaScript');
+        }
+        return response.text();
+    })
+    .then(data => {
+        // Utilisation de la fonction pour extraire la version du contenu récupéré
+        var version = getVersionFromContent(data);
+        console.log('Version du fichier JavaScript:', version);
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+    });
+
 
 (function() {
     'use strict';
