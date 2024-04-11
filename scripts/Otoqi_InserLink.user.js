@@ -8,9 +8,6 @@
 // @grant        none
 // ==/UserScript==
 
-// Exemple de fonction pour extraire la version sans utiliser de regex
-
-const localversion = 0.1;
 
 // Fonction pour extraire la version du contenu du fichier JavaScript
 function getVersionFromContent(content) {
@@ -28,6 +25,8 @@ function getVersionFromContent(content) {
 
 // URL du fichier JavaScript
 var jsFileUrl = 'https://raw.githubusercontent.com/maurinbr/Asphalte/main/scripts/Otoqi_InserLink.js';
+// Version 
+const version = 0.1;
 
 // Utilisation de Fetch pour récupérer le contenu du fichier JavaScript
 fetch(jsFileUrl)
@@ -68,7 +67,6 @@ fetch(jsFileUrl)
     .catch(error => {
         console.error('Erreur:', error);
     });
-
 
 
 (function() {

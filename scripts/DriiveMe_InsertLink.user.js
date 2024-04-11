@@ -1,12 +1,71 @@
 // ==UserScript==
 // @name         [DriiveMe] Block remover by Tchip
 // @namespace    https://github.com/maurinbr/Asphalte
-// @version      1.0
+// @version      0.1
 // @description  - Insérer les raccourci Blablacar, GoogleMap et Mappy dans l"affichage des missions
 // @author       Tchip
 // @include        https://www.driiveme.com/*
 // @grant        none
 // ==/UserScript==
+
+// Fonction pour extraire la version du contenu du fichier JavaScript
+function getVersionFromContent(content) {
+  // Chercher la ligne qui contient la version
+  var lines = content.split('\n');
+  var versionLine = lines.find(line => line.trim().startsWith('const version'));
+  if (versionLine) {
+    // Extraction du numéro de version
+    const versionNumber = versionLine.match(/\d+\.\d+/)[0];
+    return versionNumber;
+  } else {
+      return null; // Si la version n'a pas été trouvée
+  }
+}
+
+// URL du fichier JavaScript
+var jsFileUrl = 'https://raw.githubusercontent.com/maurinbr/Asphalte/main/scripts/DriiveMe_InsertLink.user.js';
+// Version 
+const version = 0.1;
+
+// Utilisation de Fetch pour récupérer le contenu du fichier JavaScript
+fetch(jsFileUrl)
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Erreur de récupération du fichier JavaScript');
+      }
+      return response.text();
+  })
+  .then(data => {
+      // Utilisation de la fonction pour extraire la version du contenu récupéré
+      var version = getVersionFromContent(data);
+      if (version == localversion) {
+
+        } else {
+          // Création de l'élément de bandeau
+          const bar = document.createElement("div");
+          bar.style.backgroundColor = "yellow";
+          bar.style.padding = "10px";
+          bar.style.textAlign = "center";
+
+          // Création de l'élément de lien hypertexte
+          const lien = document.createElement("a");
+          lien.href = "https://maurinbr.github.io/Asphalte/";
+          lien.textContent = "Asphalte : Mise à jour disponible, Télécharger ici !";
+          
+
+          // Insertion du lien dans l'élément bar
+          bar.appendChild(lien);
+
+          // Insertion du bandeau au début du corps
+          document.body.insertBefore(bar, document.body.firstChild);
+
+
+        }
+
+  })
+  .catch(error => {
+      console.error('Erreur:', error);
+  });
 
 
 (function() {
