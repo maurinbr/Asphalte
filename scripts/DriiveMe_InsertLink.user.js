@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         [DriiveMe] Blablacar link by Tchip
+// @name         [DriiveMe] link by Tchip
 // @namespace    https://github.com/maurinbr/Asphalte
 // @version      0.1
 // @description  - Insérer les raccourci Blablacar, GoogleMap et Mappy dans l"affichage des missions
 // @author       Tchip
-// @include        https://www.driiveme.com/*
+// @match        https://www.driiveme.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -24,7 +24,7 @@ function getVersionFromContent(content) {
 
 // URL du fichier JavaScript
 var jsFileUrl = 'https://raw.githubusercontent.com/maurinbr/Asphalte/main/scripts/DriiveMe_InsertLink.user.js';
-// Version 
+// Version
 const version = 0.1;
 
 // Utilisation de Fetch pour récupérer le contenu du fichier JavaScript
@@ -51,7 +51,7 @@ fetch(jsFileUrl)
           const lien = document.createElement("a");
           lien.href = "https://maurinbr.github.io/Asphalte/";
           lien.textContent = "Asphalte : Mise à jour disponible, Télécharger ici !";
-          
+
 
           // Insertion du lien dans l'élément bar
           bar.appendChild(lien);
@@ -70,10 +70,10 @@ fetch(jsFileUrl)
 
 (function() {
     'use strict';
-  
+
   	// Fonction de converstion de date pour construire l'url de blablacar
   	function convertDate(dateStr) {
-    
+
     // Diviser la date originale
     const parts = dateStr.split('/');
 
@@ -91,16 +91,16 @@ fetch(jsFileUrl)
     function insertBlaBlaCarLinks() {
         // Trouver tous les blocks "block-trajet"
         var trajetBlocks = document.querySelectorAll('.block-trajet ');
-      	
+
         // Sélectionner l'élément input par son nom
         var inputElement = document.querySelector('input[name="desiredDate"]');
-      
+
         // Vérifier si l'élément existe pour éviter des erreurs
         if (inputElement) {
           // Lire la valeur
           var date = inputElement.value;
           console.log(date) ;
-          
+
 
           // Afficher la valeur dans la console ou l'utiliser selon vos besoins
           // Obtenir la date d'aujourd'hui si 'date' est une chaîne vide
@@ -111,17 +111,17 @@ fetch(jsFileUrl)
               var year = today.getFullYear();
               date = `${year}-${month}-${day}`; // Format aaaa-mm-jj
             	console.log(date) ;
-          }  else {
+          } else {
                 date = convertDate(date); // Convertir la date avec la fonction définie ;
             }
-        } 
-      
+        }
+
         trajetBlocks.forEach(block => {
             // Pour chaque block, trouver les éléments "strong blueDark" à l'intérieur
             var elements = block.querySelectorAll('.strong.blueDark');
-       
-         
-          
+
+
+
             if (elements.length < 2) {
                 console.log("Pas assez d'éléments trouvés pour construire le lien dans ce block.");
                 return;
@@ -131,14 +131,14 @@ fetch(jsFileUrl)
             var depart = elements[0].getAttribute('data-original-title');
             var livraison = elements[1].getAttribute('data-original-title');
 						var home = "Lyon"
-            
-            
+
+
             // Construire l'URL
-            
+
             var baseBlaBlaCarURL = 'https://www.blablacar.fr/search';
 						var googleMapsBaseURL = 'https://www.google.com/maps/dir/';
 						var mappyBaseURL = 'https://fr.mappy.com/itineraire#/voiture/';
-            
+
             var datePart = date ? `&db=${encodeURIComponent(date)}` : '';
 
             var urla = `${baseBlaBlaCarURL}?fn=${encodeURIComponent(home)}&tn=${encodeURIComponent(depart)}${datePart}`;
@@ -166,7 +166,7 @@ fetch(jsFileUrl)
             icon.alt = altText;
             icon.style.marginRight = '8px';
 
-            // Ajouter l'icône et le texte au lien
+            //Ajouter l'icône et le texte au lien
             link.appendChild(icon);
             link.appendChild(document.createTextNode(texte));
 
@@ -179,7 +179,7 @@ fetch(jsFileUrl)
             creerEtInsererLien(urlc, 'Icône GoogleMaps', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Google_Maps_icon_(2020).svg/16px-Google_Maps_icon_(2020).svg.png', 'Trajet', block);
             creerEtInsererLien(urld, 'Icône Mappy', 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://mappy.com&size=16', 'Trajet', block);
 
-          
+
         });
     }
 
