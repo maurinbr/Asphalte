@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         [DriiveMe] Block remover by Tchip
+// @name         [DriiveMe] Blablacar link by Tchip
 // @namespace    https://github.com/maurinbr/Asphalte
 // @version      0.1
 // @description  - Insérer les raccourci Blablacar, GoogleMap et Mappy dans l"affichage des missions
